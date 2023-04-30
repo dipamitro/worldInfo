@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="world info." />
+
+  <!-- Always include this line of code!!! -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="icon" href="img/favicon.png" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/general.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/queries.css" />
+
+  <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
+
+  <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
+  <script defer src="js/script.js"></script>
+
+  <title>World Info &mdash; Never cook again!</title>
+</head>
+
+<body>
+  <header class="header">
+    <h1>World Info</h1>
+
+    <nav class="main-nav">
+      <ul class="main-nav-list">
+        <li><a class="main-nav-link" href="#h">How it works</a></li>
+        <li><a class="main-nav-link" href="#pricing">Search Any Country</a></li>
+        <li>
+          <a class="main-nav-link" href="#pricingg">See all Country</a>
+        </li>
+        <li><a class="main-nav-link" href="#cta">Sign-up</a></li>
+        <li><a class="main-nav-link nav-cta" href="#cont">Contact</a></li>
+      </ul>
+    </nav>
+
+    <button class="btn-mobile-nav">
+      <ion-icon class="icon-mobile-nav" name="menu-outline"></ion-icon>
+      <ion-icon class="icon-mobile-nav" name="close-outline"></ion-icon>
+    </button>
+  </header>
+
+  <main>
+    <section class="section-hero" id="hero">
+      <div class="hero">
+        <div class="hero-text-box">
+          <h1 class="heading-primary">
+            Are You Searching Any Country In The World?
+          </h1>
+          <p class="hero-description">
+            Then You Are In Right Place,There You Can Find Any Country With Population ,Capital,Flag ect
+          </p>
+          <a href="document.html" class="btn btn--full margin-right-sm">Start See Details</a>
+
+          <a href="#how" class="btn btn--outline">Learn more &darr;</a>
+          <div class="delivered-meals">
+            <div class="delivered-imgs">
+              <img src="img/customers/customer-1.jpg" alt="Customer photo" />
+              <img src="img/customers/customer-2.jpg" alt="Customer photo" />
+              <img src="img/customers/customer-3.jpg" alt="Customer photo" />
+              <img src="img/customers/customer-4.jpg" alt="Customer photo" />
+              <img src="img/customers/customer-5.jpg" alt="Customer photo" />
+              <img src="img/customers/customer-6.jpg" alt="Customer photo" />
+            </div>
+            <p class="delivered-text">
+              <span>250,000+</span> people Searching last year!
+            </p>
+          </div>
+        </div>
+        <div class="hero-img-box">
+          <img src="img/collage.jpg" class="hero-img"
+            alt="Woman enjoying food, meals in storage container, and food bowls on a table" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pricing" id="pricing">
+      <div class="container">
+        <span class="subheading">Pricing</span>
+        <h2 class="heading-secondary">
+          Find Data for a Specific Country
+        </h2>
+      </div>
+      <div class="container grid grid--8-cols margin-bottom-md">
+        <div class="pricing-plan pricing-plan--starter">
+          <div class="container">
+            
+            <h1>Search for a country</h1>
+            <div class="search-container">
+              <input type="text" class="p-5 m-5" id="country-search" placeholder="Type a country name...">
+            <div class="btn  margin-right-sm"><button onclick="searchCountry()" class="btn btn--full margin-right-sm ">Search</button></div>
+            </div>
+            
+            <div id="country-data"></div>
+            
+            <script>
+              function searchCountry() {
+                const searchQuery = document.getElementById("country-search").value;
+                fetch(`https://restcountries.com/v2/name/${searchQuery}`)
+                  .then(response => response.json())
+                  .then(data => {
+                    const country = data[0];
+                    const countryData = `
+              <h2>${country.name}</h2>
+              <p><strong>Capital:</strong> ${country.capital}</p>
+              <p><strong>Population:</strong> ${country.population}</p>
+              <p><strong>Region:</strong> ${country.region}</p>
+              <p><strong>Subregion:</strong> ${country.subregion}</p>
+              <p><strong>Currency:</strong> ${country.currencies[0].name} (${country.currencies[0].symbol})</p>
+              <img src="${country.flag}" alt="Flag of ${country.name}" width="200">
+            `;
+                    document.getElementById("country-data").innerHTML = countryData;
+                  })
+                  .catch(error => {
+                    document.getElementById("country-data").innerHTML = "<p>Country not found. Please try again.</p>";
+                  });
+              }
+            </script>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pricing" id="pricingg">
+      <div class="container">
+        <span class="subheading">Pricing</span>
+        <h2 class="heading-secondary">
+          Find Data for world's all Country
+        </h2>
+      </div>
+      <div class="container grid grid--8-cols margin-bottom-md">
+        <div class="pricing-plan pricing-plan--starter">
+          <div class="container">
+            <form>
+              <div class="form-group mt-4 mb-5">
+                <h2>Enter Country Name: </h2>
+                
+              </div>
+            </form>
+            
+
+            <div class="search-container">
+              <form action="document.html">
+                <input type="text" placeholder="Write any Country...">
+                <div class="btn btn--full margin-right-sm"><button type="submit">Search for all country</button></div>
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section-cta" id="cta">
+      <div class="container">
+        <div class="cta">
+          <div class="cta-text-box">
+            <h2 class="heading-secondary">Are you want to Sign Up!</h2>
+            <p class="cta-text">
+              if you want to sign in then resister here properly
+            </p>
+
+            <form class="cta-form" name="sign-up" netlify>
+              <div>
+                <label for="full-name">Full Name</label>
+                <input id="full-name" type="text" placeholder="Full Name" name="full-name" required />
+              </div>
+              <div>
+                <label for="email">Email address</label>
+                <input id="email" type="email" placeholder="me@example.com" name="email" required />
+              </div>
+              <div>
+                <label for="select-where">Where did you hear from us?</label>
+                <select id="select-where" name="select-where" required>
+                  <option value="">Please choose one option:</option>
+                  <option value="friends">Friends and family</option>
+                  <option value="youtube">YouTube video</option>
+                  <option value="podcast">Podcast</option>
+                  <option value="ad">Facebook ad</option>
+                  <option value="others">Others</option>
+                </select>
+              </div>
+              <button class="btn btn--form">Sign up now</button>
+              <!-- <input type="checkbox" />
+                <input type="number" /> -->
+            </form>
+          </div>
+          <div class="cta-img-box" role="img" aria-label="Woman enjoying food"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer" id="cont">
+    <div class="container grid grid--footer">
+      <div class="logo-col">
+        <h2>World Info</h2>
+        <ul class="social-links">
+          <li>
+            <a class="footer-link" href="#"><ion-icon class="social-icon" name="logo-instagram"></ion-icon></a>
+          </li>
+          <li>
+            <a class="footer-link" href="#"><ion-icon class="social-icon" name="logo-facebook"></ion-icon></a>
+          </li>
+          <li>
+            <a class="footer-link" href="#"><ion-icon class="social-icon" name="logo-twitter"></ion-icon></a>
+          </li>
+        </ul>
+        <p class="copyright">
+          Copyright &copy; <span class="year">2027</span> by World Info, Inc.
+          All rights reserved.
+        </p>
+      </div>
+      <div class="address-col">
+        <p class="footer-heading">Contact us</p>
+        <address class="contacts">
+          <p class="address">
+            623 Harrison St., 2nd Floor, San Francisco, CA 94107
+          </p>
+          <p>
+            <a class="footer-link" href="tel:415-201-6370">415-201-6370</a><br />
+            <a class="footer-link" href="mailto:hello@worldinfo.com">hello@worldinfo.com</a>
+          </p>
+        </address>
+      </div>
+      <nav class="nav-col">
+        <p class="footer-heading">Account</p>
+        <ul class="footer-nav">
+          <li><a class="footer-link" href="#">Create account</a></li>
+          <li><a class="footer-link" href="#">Sign in</a></li>
+          <li><a class="footer-link" href="#">iOS app</a></li>
+          <li><a class="footer-link" href="#">Android app</a></li>
+        </ul>
+      </nav>
+      <nav class="nav-col">
+        <p class="footer-heading">Company</p>
+        <ul class="footer-nav">
+          <li><a class="footer-link" href="#">About WorldInfo</a></li>
+          <li><a class="footer-link" href="#">For Business</a></li>
+          <li><a class="footer-link" href="#">Partners</a></li>
+          <li><a class="footer-link" href="#">Careers</a></li>
+        </ul>
+      </nav>
+      <nav class="nav-col">
+        <p class="footer-heading">Resources</p>
+        <ul class="footer-nav">
+          <li><a class="footer-link" href="#">Recipe directory </a></li>
+          <li><a class="footer-link" href="#">Help center</a></li>
+          <li><a class="footer-link" href="#">Privacy & terms</a></li>
+        </ul>
+      </nav>
+    </div>
+
+  </footer>
+<style>
+  .search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background-color:#fae2c5;
+  }
+  .search-container input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: none;
+    border-radius: 5px;
+    width: 500px;
+    background-color: #f2f2f2;
+    margin-right: 5px;
+  }
+  .search-container button[type=submit] {
+    padding: 10px 20px;
+    background-color: #ffc078;
+    font-size: 17px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .search-container button[type=submit]:hover {
+    background-color: #ffa94d;
+  }
+
+
+  @media (max-width: 990px) {
+  /* Styles for screens up to 768px wide */
+  .search-container input[type=text],section-pricing {
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 3px;
+    width: 300px;
+   
+}
+.search-container,section-pricing {
+ 
+    height: 80px;
+    background-color:#ffffff;
+  }
+
+@media (max-width: 400px) {
+  
+  .search-container input[type=text],section-pricing {
+    padding: 2px;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    border-radius: 1px;
+    width: 150px;
+   
+}
+}
+
+</style>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
